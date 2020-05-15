@@ -16,6 +16,7 @@ You can find more detailed instructions [here](https://reactnative.dev/docs/envi
     * `Android 9 (Pie)` (As of the time writing this, React Native only works with Android SDK 9)
     * `Android SDK Platform 28`
     * `Intel x86 Atom_64 System Image` or `Google APIs Intel x86 Atom System Image`
+  * Install an Android 9 image from AVD Manager in android studio.
 * Run `./setup_bash_profile.sh` to configure the `ANDROID_HOME` environment variable (change the directory location in this script if needed).
 * Install [brew](https://brew.sh/): `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
 * Install [Watchman](https://facebook.github.io/watchman/docs/install/#buildinstall) : `brew update && brew install watchman`.
