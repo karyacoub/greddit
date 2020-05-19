@@ -20,8 +20,9 @@
     "@types/react-native": "^0.62.10",
     "@types/react-test-renderer": "^16.9.2",
     "eslint": "^6.5.1",
-    "jest": "^24.9.0",
+    "jest": "^26.0.0",
     "react-test-renderer": "16.11.0",
+    "ts-jest": "^26.0.0",
     "typescript": "^3.9.2"
   }
 }

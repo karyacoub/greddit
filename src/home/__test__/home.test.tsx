@@ -10,7 +10,7 @@ describe("Home component", () => {
         subject = renderer.render(<Home />)
     });
 
-    it("renders something", () => {
-        console.error("This is a test");
+    it("is a test to see if jest works", () => {
+        expect(1).toEqual(1);
     });
 });
