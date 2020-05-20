@@ -11,6 +11,6 @@ describe("Home component", () => {
     });
 
     it('is a test to see if jest works', () => {
-        expect(1).toEqual(1);
+        expect(1).toEqual(2);
     });
 });
