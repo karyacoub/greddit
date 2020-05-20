@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint 'src/**'"
   },
   "dependencies": {
     "react": "16.11.0",
@@ -19,7 +19,10 @@
     "@types/react": "^16.9.35",
     "@types/react-native": "^0.62.10",
     "@types/react-test-renderer": "^16.9.2",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.5.1",
+    "eslint-plugin-react": "^7.20.0",
     "jest": "^26.0.0",
     "react-test-renderer": "16.11.0",
     "ts-jest": "^26.0.0",
