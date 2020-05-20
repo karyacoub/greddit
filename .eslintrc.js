@@ -1,10 +1,13 @@
 module.exports = {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended"
-  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true
+    }
+  },
+  "plugins": ["react", "react-native"],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:react/recommended"],
   "rules": {
     "quotes": 1,
   }
