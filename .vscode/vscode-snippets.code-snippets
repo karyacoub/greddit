@@ -28,6 +28,12 @@
 		"description": "A Jest before-each block."
 	},
 
+	"Jest after each": {
+		"prefix": ["aft"],
+		"body": ["afterEach(() => {", "\t$0", "});"],
+		"description": "A Jest after-each block."
+	},
+
 	"Jest test": {
 		"prefix": ["it"],
 		"body": ["it(\"$1\", () => {", "\t$0", "});"],
@@ -36,7 +42,7 @@
 
 	"Typescript debug statement": {
 		"prefix": ["clogv"],
-		"body": ["console.error($0)"],
+		"body": ["console.error(\"=============> \", $0)"],
 		"description": "A Typescript print statement for debugging."
 	},
 

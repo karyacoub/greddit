@@ -15,4 +15,5 @@ module.exports = {
     "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
     "^.+\\.tsx?$": "ts-jest"
   },
+  setupFilesAfterEnv: ["@testing-library/jest-native/extend-expect"],
 };

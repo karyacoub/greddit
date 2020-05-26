@@ -1,1 +1,1 @@
-npx react-native start
+exec npx react-native start
