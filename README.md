@@ -21,4 +21,5 @@ You can find more detailed instructions [here](https://reactnative.dev/docs/envi
   * Install an Android 9 image from AVD Manager in android studio.
 * Install [brew](https://brew.sh/): `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
 * Install [Watchman](https://facebook.github.io/watchman/docs/install/#buildinstall) : `brew update && brew install watchman`.
+* Install [git-bash-prompt](https://github.com/magicmonty/bash-git-prompt) (optional)
 * Run `./setup_bash_profile.sh` to configure the `ANDROID_HOME` environment variable (change the directory location in this script if needed).
