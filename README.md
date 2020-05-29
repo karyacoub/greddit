@@ -29,3 +29,12 @@ You can find more detailed instructions [here](https://reactnative.dev/docs/envi
 * Install [Watchman](https://facebook.github.io/watchman/docs/install/#buildinstall) : `brew update && brew install watchman`.
 * Install [bash-git-prompt](https://github.com/magicmonty/bash-git-prompt) (optional)
 * Run `./setup_bash_profile.sh` to configure the `ANDROID_HOME` environment variable (change the directory location in this script if needed).
+* Install Android SDK Platform 28: `sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-28"`
+* Install Intel x86 Atom_64 System Image: `sdkmanager --sdk_root=${ANDROID_HOME} "system-images;android-29;default;x86_64"`
+* Install Android SDK Build Tools: `sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;28.0.3"`
+* Connect your Android phone (make sure that USB Debugging is turned on)
+* Open PowerShell and run `adb start-server`.
+* Once the adb server starts, ensure that your phone is detected by running `adb devices`. Your device's ID should be displayed.
+* Build the application by running `npm react-native run-android` in WSL.
+  * Note that this could fail with the error `Error: spawn ./gradlew EACCES`. This is because `gradlew` is does not have permission to execute. Run `chmod 755 android/gradlew` from within the project root to give the script permission to execute and try to build again.
+* The application should open automatically on your phone (albeit in a failed state). You must start the Metro server to package and run your code on the device by running `npx react-native start`.
