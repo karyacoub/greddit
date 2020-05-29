@@ -12,6 +12,12 @@ You can find more detailed instructions [here](https://reactnative.dev/docs/envi
 * Make sure NPM is at the latest version: `sudo npm install -g npm@latest`
 * Install n from NPM: `npm install -g n` 
 * Use n to install the latest stable version of Node.js: `n lts`
+* Download and install Android SDK:
+  * Create two new directories called `android-sdk` and `android-sdk-wsl` on your main drive.
+  * Download the [Linux Commandline Tools](https://developer.android.com/studio#downloads) and extract them into `android-sdk-wsl`.
+  * Download both the Linux and the Windows [Platfom Tools](https://developer.android.com/studio/releases/platform-tools).
+  * Extract the Linux Platform Tools into `android-sdk-wsl`, and the Windows Platform Tools into `android-sdk`.
+  * Add the location of your `android-sdk/platform-tools` directory into your Windows PATH environment variable (not the WSL PATH environment variable) so that we can run `adb` in out Windows command line (this needs to be done for `adb` in WSL to recognize your connected device).
 * Download and install [Android Studio](https://developer.android.com/studio/index.html).
   * Make sure the `Android SDK`, `Android SDK Platform`, and `Android Virtual Device` checkboxes are all checked on initial instalation (if they are grayed out, they can be installed later).
   * Make sure the following are installed from Android SDK Manager:
@@ -21,5 +27,5 @@ You can find more detailed instructions [here](https://reactnative.dev/docs/envi
   * Install an Android 9 image from AVD Manager in android studio.
 * Install [brew](https://brew.sh/): `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
 * Install [Watchman](https://facebook.github.io/watchman/docs/install/#buildinstall) : `brew update && brew install watchman`.
-* Install [git-bash-prompt](https://github.com/magicmonty/bash-git-prompt) (optional)
+* Install [bash-git-prompt](https://github.com/magicmonty/bash-git-prompt) (optional)
 * Run `./setup_bash_profile.sh` to configure the `ANDROID_HOME` environment variable (change the directory location in this script if needed).
