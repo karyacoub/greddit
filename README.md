@@ -8,6 +8,8 @@ You can find more detailed instructions [here](https://reactnative.dev/docs/envi
 
 * Install OpenJDK 8 (as of the time writing this, React Native requires Java 8): `sudo apt install openjdk-8-jdk`
 * Install Node.js: `sudo apt install nodejs`
+* Install NPM: `sudo apt install npm`
+* Make sure NPM is at the latest version: `sudo npm install -g npm@latest`
 * Install n from NPM: `npm install -g n` 
 * Use n to install the latest stable version of Node.js: `n lts`
 * Download and install [Android Studio](https://developer.android.com/studio/index.html).
