@@ -1,1 +1,0 @@
-exec npx react-native run-andoid
