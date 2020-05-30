@@ -50,7 +50,7 @@ export function processGetUnwrapped<T>(url: string): Promise<T> {
         .then((response: AxiosResponse<T>) => {
             return response.data;
         }).catch((error) => {
-            console.log(`Error retrieving GET from ${url}. Rejecting promise`);
+            console.log(`Error retrieving GET from [${url}]. Rejecting promise`);
             throw new ApiError(error.response.status, error.response.data);
         });
 }

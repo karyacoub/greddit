@@ -6,7 +6,7 @@ export async function renderWithHooks(element: JSX.Element) {
     let subject: TestRendererWithHooks | undefined;
 
     await act(async () => {
-        subject = await new TestRendererWithHooks(element);
+        subject = new TestRendererWithHooks(element);
     })
 
     return subject!;

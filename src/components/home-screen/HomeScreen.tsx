@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, FlatList } from "react-native";
-import { NOT_REQUESTED, REQUESTED, REQUEST_FAILED, REQUEST_SUCCEEDED, IRequestState, RequestStateTypes } from "../../api/apiUtils";
+import { FlatList, Text, View } from "react-native";
 import { requestPostListing } from "../../api/PostListingApi";
-import { IListing, Listing, IListingEntity } from "../../models/Listing.model";
+import { IListing, Listing } from "../../models/Listing.model";
 
 export const HomeScreen: React.FunctionComponent = () => {
-    const [currentPosts, setCurrentPosts] = useState<IRequestState<IListing[]>>(NOT_REQUESTED);
+    const [currentPosts, setCurrentPosts] = useState<IListing[]>([]);
+    const [lastPostName, setLastPostName] = useState<string | undefined>()
 
-    useEffect(() => {
-        setCurrentPosts(REQUESTED);
-
-        requestPostListing()
+    function requestPosts() {
+        requestPostListing(lastPostName)
             .then((posts: Listing[]) => {
-                setCurrentPosts(REQUEST_SUCCEEDED(posts));
+                setCurrentPosts(currentPosts.concat(posts));
+                setLastPostName(posts[posts.length - 1].name);
             }).catch((error) => {
-                setCurrentPosts(REQUEST_FAILED(error));
+                console.error("Error: could not retrive posts.", error);
             });
-    }, []);
+    }
 
     function renderPost({item, index}: any) {
-        console.log(item);
         return <Text key={index}>{item.title}</Text>;
     }
 
+    useEffect(requestPosts, []);
+
     return <View style={{width: "100%", height: "100%"}}>
-        <FlatList data={currentPosts.data ? currentPosts.data : []}
-                  keyExtractor={(listing: IListing) => listing.name}
+        <FlatList data={currentPosts}
+                  keyExtractor={(_, idx: number) => `${idx}`}
+                  onEndReached={requestPosts}
                   renderItem={renderPost} />
     </View>;
 };
