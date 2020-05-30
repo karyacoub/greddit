@@ -1,7 +1,7 @@
 jest.mock("../../../api/PostListingApi");
 
 import React from "react";
-import { Text } from "react-native";
+import { FlatList } from "react-native";
 import { requestPostListing } from "../../../api/PostListingApi";
 import { Listing } from "../../../models/Listing.model";
 import { renderWithHooks, TestRendererWithHooks } from "../../../testUtils";
@@ -27,12 +27,9 @@ describe("HomeScreen component", () => {
         expect(requestPostListing).toHaveBeenCalled();
     });
 
-    it("displays post titles", () => {
-        const postTitles = subject.findAllByType(Text);
+    it("renders a FlatList with the correct props", () => {
+        const flatList = subject.findByType(FlatList);
 
-        expect(postTitles.length).toEqual(3);
-        expect(postTitles[0].props.children).toEqual(postListings[0].title);
-        expect(postTitles[1].props.children).toEqual(postListings[1].title);
-        expect(postTitles[2].props.children).toEqual(postListings[2].title);
+        expect(flatList.props.data).toEqual(postListings);
     });
 });

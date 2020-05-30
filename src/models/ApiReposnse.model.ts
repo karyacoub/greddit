@@ -2,9 +2,9 @@ import { IListingEntity } from "./Listing.model";
 
 export interface IApiData {
     modhash: string;
-    dist: number;
-    before?: string;
-    after?: string;
+    itemCount: number;
+    itemsAfter?: string;
+    itemsBefore?: string;
     children: IListingEntity[];
 }
 
@@ -15,7 +15,7 @@ export interface IApiResponse {
 
 export const initialApiData: IApiData = {
     modhash: "",
-    dist: 0,
+    itemCount: 0,
     children: [],
 }
 

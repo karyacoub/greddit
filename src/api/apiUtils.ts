@@ -1,6 +1,6 @@
 import Axios, { AxiosResponse } from "axios";
 
-enum RequestStateTypes {
+export enum RequestStateTypes {
     NOT_REQUESTED = "NOT_REQUESTED",
     REQUESTED = "REQUESTED",
     REQUEST_SUCCEEDED = "REQUEST_SUCCEEDED",

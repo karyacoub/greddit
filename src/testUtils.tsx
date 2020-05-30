@@ -22,4 +22,8 @@ export class TestRendererWithHooks {
     public findAllByType(element: ElementType<any>): ReactTestInstance[] {
         return this.subject.root.findAllByType(element);
     }
+
+    public findByType(element: ElementType<any>): ReactTestInstance {
+        return this.subject.root.findByType(element);
+    }
 }

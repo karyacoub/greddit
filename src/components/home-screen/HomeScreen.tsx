@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { NOT_REQUESTED, REQUESTED, REQUEST_FAILED, REQUEST_SUCCEEDED, IRequestState } from "../../api/apiUtils";
+import { Text, View, FlatList } from "react-native";
+import { NOT_REQUESTED, REQUESTED, REQUEST_FAILED, REQUEST_SUCCEEDED, IRequestState, RequestStateTypes } from "../../api/apiUtils";
 import { requestPostListing } from "../../api/PostListingApi";
-import { IListing, Listing } from "../../models/Listing.model";
+import { IListing, Listing, IListingEntity } from "../../models/Listing.model";
 
 export const HomeScreen: React.FunctionComponent = () => {
     const [currentPosts, setCurrentPosts] = useState<IRequestState<IListing[]>>(NOT_REQUESTED);
@@ -18,15 +18,15 @@ export const HomeScreen: React.FunctionComponent = () => {
             });
     }, []);
 
-    function renderCurrentPosts() {
-        return currentPosts.data
-            ? currentPosts.data.map((post: IListing, idx: number) => 
-                <Text key={idx}>{post.title}</Text>)
-            : null;
+    function renderPost({item, index}: any) {
+        console.log(item);
+        return <Text key={index}>{item.title}</Text>;
     }
 
-    return <View>
-        {renderCurrentPosts()}
+    return <View style={{width: "100%", height: "100%"}}>
+        <FlatList data={currentPosts.data ? currentPosts.data : []}
+                  keyExtractor={(listing: IListing) => listing.name}
+                  renderItem={renderPost} />
     </View>;
 };
 
