@@ -28,6 +28,12 @@
 		"description": "A Jest before-each block."
 	},
 
+	"Jest before all": {
+		"prefix": ["befA"],
+		"body": ["beforeAll(() => {", "\t$0", "});"],
+		"description": "A Jest before-each block."
+	},
+
 	"Jest after each": {
 		"prefix": ["aft"],
 		"body": ["afterEach(() => {", "\t$0", "});"],

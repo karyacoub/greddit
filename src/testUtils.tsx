@@ -19,11 +19,19 @@ export class TestRendererWithHooks {
         this.subject = create(rootElement);
     }
 
+    public debug(): string {
+        return JSON.stringify(this.subject.toJSON(), null, 1);
+    }
+
     public findAllByType(element: ElementType<any>): ReactTestInstance[] {
         return this.subject.root.findAllByType(element);
     }
 
     public findByType(element: ElementType<any>): ReactTestInstance {
         return this.subject.root.findByType(element);
+    }
+
+    public findByTestId(testId: string): ReactTestInstance {
+        return this.subject.root.findAll((el) => el.props.testID === testId)[0];
     }
 }

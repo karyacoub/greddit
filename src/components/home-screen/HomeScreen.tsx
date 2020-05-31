@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { requestPostListing } from "../../api/PostListingApi";
 import { IListing, Listing } from "../../models/Listing.model";
+import { PostListing } from "./PostListing";
 
 export const HomeScreen: React.FunctionComponent = () => {
     const [currentPosts, setCurrentPosts] = useState<IListing[]>([]);
@@ -17,8 +18,8 @@ export const HomeScreen: React.FunctionComponent = () => {
             });
     }
 
-    function renderPost({item, index}: any) {
-        return <Text key={index}>{item.title}</Text>;
+    function renderPost({item}: any) {
+        return <PostListing listing={item} key={item.name} />;
     }
 
     useEffect(requestPosts, []);
