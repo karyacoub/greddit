@@ -8,8 +8,13 @@ export interface IPostListingProps {
 }
 
 export const PostListing: React.FunctionComponent<IPostListingProps> = (props) => {
-    return <View style={styles.postListing}>
-        <Text testID="post-listing__score" style={styles.postScore}>{props.listing.score}</Text>
-        <Text testID="post-listing__title" style={styles.postTitle}>{props.listing.title}</Text>
+    return <View>
+        <View style={styles.postListingRow}>
+            <Text testID="post-listing__score" style={styles.postScore}>{props.listing.score}</Text>
+            <Text testID="post-listing__title" style={styles.postTitle}>{props.listing.title}</Text>
+        </View>
+        <View>
+            <Text testID="post-listing__author">{`/u/${props.listing.author}`}</Text>
+        </View>
     </View>;
 }

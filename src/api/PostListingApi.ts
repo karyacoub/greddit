@@ -14,6 +14,7 @@ export function requestPostListing(after?: string) {
                     .title(listing.data.title)
                     .name(listing.data.name)
                     .score(listing.data.score)
+                    .author(listing.data.author)
                     .build();
             })
         }).catch(() => {

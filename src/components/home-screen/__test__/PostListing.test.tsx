@@ -20,11 +20,15 @@ describe("PostListing component", () => {
         subject = await renderWithHooks(<PostListing {...defaultProps} />);
     });
 
-    it("renders post title", () => {
+    it("renders the post title", () => {
         expect(subject.findByTestId("post-listing__title").props.children).toEqual(listing.title);
     });
 
-    it("renders post score", () => {
+    it("renders the post score", () => {
         expect(subject.findByTestId("post-listing__score").props.children).toEqual(listing.score);
+    });
+
+    it("renders the post author", () => {
+        expect(subject.findByTestId("post-listing__author").props.children).toEqual(`/u/${listing.author}`);
     });
 });

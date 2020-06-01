@@ -7,16 +7,19 @@ const post1: IListing = Listing.builder()
         .title("Post 1")
         .name("1")
         .score(100)
+        .author("author1")
         .build();
     const post2: IListing = Listing.builder()
         .title("Post 2")
         .name("2")
         .score(200)
+        .author("author2")
         .build();
     const post3: IListing = Listing.builder()
         .title("Post 3")
         .name("3")
         .score(300)
+        .author("author3")
         .build();
 
 describe("requestPostListing", () => {
