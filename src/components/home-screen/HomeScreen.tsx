@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 import { requestPostListing } from "../../api/PostListingApi";
 import { IListing, Listing } from "../../models/Listing.model";
 import { PostListing } from "./PostListing";
@@ -24,12 +24,10 @@ export const HomeScreen: React.FunctionComponent = () => {
 
     useEffect(requestPosts, []);
 
-    return <View style={{width: "100%", height: "100%"}}>
-        <FlatList data={currentPosts}
+    return <FlatList data={currentPosts}
                   keyExtractor={(_, idx: number) => `${idx}`}
                   onEndReached={requestPosts}
-                  renderItem={renderPost} />
-    </View>;
+                  renderItem={renderPost} />;
 };
 
 HomeScreen.displayName = "HomeScreen";

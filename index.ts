@@ -1,4 +1,4 @@
-import {AppRegistry} from "react-native";
-import { HomeScreen } from "./src/components/home-screen/HomeScreen";
+import { AppRegistry } from "react-native";
+import { Root } from "./src/components/root/Root";
 
-AppRegistry.registerComponent("Greddit", () => HomeScreen);
+AppRegistry.registerComponent("Greddit", () => Root);
