@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-    postListingRow: {
+    postListingSection: {
         flexDirection: "row",
     },
 
@@ -13,4 +13,8 @@ export default StyleSheet.create({
     postTitle: {
         flex: 1,
     },
+
+    postAuthor: {
+        marginRight: 10,
+    }
 });

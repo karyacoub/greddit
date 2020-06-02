@@ -9,7 +9,9 @@ describe("PostListing component", () => {
     const listing: IListing = Listing.builder()
         .name("post-listing")
         .title("Post Listing")
+        .author("author")
         .score(100)
+        .subreddit("subreddit")
         .build();
 
     const defaultProps: IPostListingProps = {
@@ -21,14 +23,18 @@ describe("PostListing component", () => {
     });
 
     it("renders the post title", () => {
-        expect(subject.findByTestId("post-listing__title").props.children).toEqual(listing.title);
+        expect(subject.findByTestId("post-listing__title").text()).toEqual(listing.title);
     });
 
     it("renders the post score", () => {
-        expect(subject.findByTestId("post-listing__score").props.children).toEqual(listing.score);
+        expect(subject.findByTestId("post-listing__score").text()).toEqual(listing.score);
     });
 
     it("renders the post author", () => {
-        expect(subject.findByTestId("post-listing__author").props.children).toEqual(`/u/${listing.author}`);
+        expect(subject.findByTestId("post-listing__author").text()).toEqual(`/u/${listing.author}`);
+    });
+
+    it("renders the post author", () => {
+        expect(subject.findByTestId("post-listing__subreddit").text()).toEqual(`/r/${listing.subreddit}`);
     });
 });

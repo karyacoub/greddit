@@ -3,6 +3,7 @@ export interface IListing {
     name: string;
     score: number;
     author: string;
+    subreddit: string;
 }
 
 export interface IListingEntity {
@@ -15,12 +16,14 @@ export class Listing {
     public name: string;
     public score: number;
     public author: string;
+    public subreddit: string;
 
-    constructor(title: string, name: string, score: number, author: string) {
+    constructor(title: string, name: string, score: number, author: string, subreddit: string) {
         this.title = title;
         this.name = name;
         this.score = score;
         this.author = author;
+        this.subreddit = subreddit;
     }
 
     public static builder() {
@@ -33,6 +36,7 @@ class ListingBuilder {
     private mName: string = "";
     private mScore: number = 0;
     private mAuthor: string = "";
+    private mSubreddit: string = "";
 
     public title(value: string) {
         this.mTitle = value;
@@ -54,12 +58,18 @@ class ListingBuilder {
         return this;
     }
 
+    public subreddit(value: string) {
+        this.mSubreddit = value;
+        return this;
+    }
+
     public build() {
         return new Listing(
             this.mTitle,
             this.mName,
             this.mScore,
             this.mAuthor,
+            this.mSubreddit,
         );
     }
 }
