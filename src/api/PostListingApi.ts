@@ -16,6 +16,7 @@ export function requestPostListing(after?: string) {
                     .score(listing.data.score)
                     .author(listing.data.author)
                     .subreddit(listing.data.subreddit)
+                    .thumbnail(listing.data.thumbnail)
                     .build();
             })
         }).catch(() => {

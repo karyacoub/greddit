@@ -52,7 +52,11 @@ export class TestRendererWithHooks {
         return this.extendTestInstance(this.subject.root.findByType(element));
     }
 
-    public findByTestId(testId: string): TestInstanceWithHooks {
-        return this.extendTestInstance(this.subject.root.findAll((el) => el.props.testID === testId)[0]);
+    public findByTestId(testId: string): TestInstanceWithHooks | null {
+        const element = this.subject.root.findAll((el) => el.props.testID === testId)[0];
+
+        return element 
+            ? this.extendTestInstance(element)
+            : null;
     }
 }

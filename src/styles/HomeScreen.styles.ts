@@ -1,8 +1,33 @@
 import { StyleSheet } from "react-native";
 
+const thumbnailDimensions = 105;
+
 export default StyleSheet.create({
+    postListingContainer: {
+        flexDirection: "row",
+    },
+
     postListingSection: {
         flexDirection: "row",
+        width: "100%",
+    },
+
+    postInfoWithThumbnail: {
+        width: "75%",
+        fontWeight: "700",
+    },
+
+    postInfo: {
+        width: "100%",
+    },
+
+    thumbnailContainer: {
+        width: "25%",
+    },
+
+    postThumbnail: {
+        width: thumbnailDimensions,
+        height: thumbnailDimensions,
     },
 
     postScore: {
@@ -16,5 +41,5 @@ export default StyleSheet.create({
 
     postAuthor: {
         marginRight: 10,
-    }
+    },
 });

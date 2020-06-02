@@ -12,6 +12,7 @@ describe("PostListing component", () => {
         .author("author")
         .score(100)
         .subreddit("subreddit")
+        .thumbnail("https://test.url/resource")
         .build();
 
     const defaultProps: IPostListingProps = {
@@ -23,18 +24,36 @@ describe("PostListing component", () => {
     });
 
     it("renders the post title", () => {
-        expect(subject.findByTestId("post-listing__title").text()).toEqual(listing.title);
+        expect(subject.findByTestId("post-listing__title")!.text()).toEqual(listing.title);
     });
 
     it("renders the post score", () => {
-        expect(subject.findByTestId("post-listing__score").text()).toEqual(listing.score);
+        expect(subject.findByTestId("post-listing__score")!.text()).toEqual(listing.score);
     });
 
     it("renders the post author", () => {
-        expect(subject.findByTestId("post-listing__author").text()).toEqual(`/u/${listing.author}`);
+        expect(subject.findByTestId("post-listing__author")!.text()).toEqual(`/u/${listing.author}`);
     });
 
     it("renders the post author", () => {
-        expect(subject.findByTestId("post-listing__subreddit").text()).toEqual(`/r/${listing.subreddit}`);
+        expect(subject.findByTestId("post-listing__subreddit")!.text()).toEqual(`/r/${listing.subreddit}`);
+    });
+
+    it("renders the post thumbnail when the thumbnail is a link", () => {
+        expect(subject.findByTestId("post-listing__thumbnail")!.props.source.uri).toEqual(listing.thumbnail);
+    });
+
+    it("does not render the post thumbnail when the thumbnail is not a link", async () => {
+        const newListing: IListing = {
+            ...listing,
+            thumbnail: "invalid url",
+        };
+        const props = {
+            ...defaultProps,
+            listing: newListing,
+        }
+        const newSubject = await renderWithHooks(<PostListing {...props} />)
+        
+        expect(newSubject.findByTestId("post-listing__thumbnail")).toBeNull();
     });
 });
