@@ -32,11 +32,11 @@ describe("PostListing component", () => {
     });
 
     it("renders the post author", () => {
-        expect(subject.findByTestId("post-listing__author")!.text()).toEqual(`/u/${listing.author}`);
+        expect(subject.findByTestId("post-listing__author")!.text()).toContain(listing.author);
     });
 
     it("renders the post author", () => {
-        expect(subject.findByTestId("post-listing__subreddit")!.text()).toEqual(`/r/${listing.subreddit}`);
+        expect(subject.findByTestId("post-listing__subreddit")!.text()).toContain(listing.subreddit);
     });
 
     it("renders the post thumbnail when the thumbnail is a link", () => {

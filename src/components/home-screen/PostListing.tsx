@@ -18,19 +18,18 @@ export const PostListing: React.FunctionComponent<IPostListingProps> = (props) =
             : null;
     }
 
-    function getPostInfoStyle() {
-        return props.listing.thumbnail.includes("http") ? styles.postInfoWithThumbnail : styles.postInfo;
-    }
-
     return <View style={styles.postListingContainer}>
-            <View style={getPostInfoStyle()}>
-                <View style={styles.postListingSection}>
-                    <Text testID="post-listing__score" style={styles.postScore}>{props.listing.score}</Text>
+            <View style={styles.postInfo}>
+                <View style={styles.postListingRow}>
+                    <Text testID="post-listing__author" style={styles.postAuthor}>{`u/${props.listing.author}`}</Text>
+                    <Text> in </Text>
+                    <Text testID="post-listing__subreddit" style={styles.postSubreddit}>{`r/${props.listing.subreddit}`}</Text>
+                </View>
+                <View style={styles.postListingRow}>
                     <Text testID="post-listing__title" style={styles.postTitle}>{props.listing.title}</Text>
                 </View>
-                <View style={styles.postListingSection}>
-                    <Text testID="post-listing__author" style={styles.postAuthor}>{`/u/${props.listing.author}`}</Text>
-                    <Text testID="post-listing__subreddit">{`/r/${props.listing.subreddit}`}</Text>
+                <View testID="post-listing__action-bar" style={styles.postListingRow}>
+                    <Text testID="post-listing__score" style={styles.postScore}>{props.listing.score}</Text>
                 </View>
             </View>
             {renderThumbnail()}

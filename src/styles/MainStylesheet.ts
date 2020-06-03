@@ -1,8 +1,10 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const {width, height} = Dimensions.get("window");
 
 export default StyleSheet.create({
     mainContainer: {
-        width: "100%",
-        height: "100%",
+        width,
+        height,
     }
 });
