@@ -1,5 +1,5 @@
 import { IApiResponse } from "../models/ApiReposnse.model";
-import { IListingEntity, Listing } from "../models/Listing.model";
+import { Listing } from "../models/Listing.model";
 import { processGetUnwrapped } from "./apiUtils";
 
 export function requestPostListing(after?: string) {
@@ -9,7 +9,7 @@ export function requestPostListing(after?: string) {
 
     return processGetUnwrapped<IApiResponse>("https://www.reddit.com/.json?limit=50" + uri)
         .then((response: IApiResponse) => {
-            return response.data.children.map((listing: IListingEntity) => {
+            return response.data.children.map((listing: any) => {
                 return Listing.builder()
                     .title(listing.data.title)
                     .name(listing.data.name)
@@ -17,6 +17,8 @@ export function requestPostListing(after?: string) {
                     .author(listing.data.author)
                     .subreddit(listing.data.subreddit)
                     .thumbnail(listing.data.thumbnail)
+                    .thumbnailWidth(listing.data.thumbnail_width)
+                    .thumbnailHeight(listing.data.thumbnail_height)
                     .build();
             })
         }).catch(() => {

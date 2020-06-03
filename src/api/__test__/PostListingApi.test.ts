@@ -10,6 +10,8 @@ const post1: IListing = Listing.builder()
         .author("author1")
         .subreddit("subreddit1")
         .thumbnail("thumbnail-1")
+        .thumbnailWidth(100)
+        .thumbnailHeight(200)
         .build();
     const post2: IListing = Listing.builder()
         .title("Post 2")

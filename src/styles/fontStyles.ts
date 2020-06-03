@@ -6,6 +6,6 @@ export default StyleSheet.create({
     },
 
     header: {
-        fontSize: 21,
+        fontSize: 18,
     },
 });

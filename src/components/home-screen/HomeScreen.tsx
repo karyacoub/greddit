@@ -18,7 +18,7 @@ export const HomeScreen: React.FunctionComponent = () => {
             });
     }
 
-    function renderPost({item}: any) {
+    function renderPost({item}: {item: IListing}) {
         return <PostListing listing={item} key={item.name} />;
     }
 

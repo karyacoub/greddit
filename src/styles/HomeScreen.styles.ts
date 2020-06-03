@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import fontStyles from "./fontStyles";
+import { Colors } from "./Colors";
 
 const thumbnailDimensions = 100;
 
@@ -7,21 +8,33 @@ export default StyleSheet.create({
     postListingContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
-        width: "100%",
-        minHeight: 100,
-        margin: 10,
+        margin: 5,
+        padding: 10,
+        backgroundColor: Colors.METALLIC_SEAWEED,
     },
 
     postListingRow: {
         flexDirection: "row",
     },
 
-    postInfo: {
+    postListingActionBar: {
         
+    },
+
+    postInfo: {
+        // width: "70%"
+        flex: 1,
     },
 
     thumbnailContainer: {
         justifyContent: "center",
+        marginLeft: 10,
+        shadowColor: Colors.BLACK,
+        shadowOpacity: 1,
+        shadowOffset: {
+            width: thumbnailDimensions,
+            height: thumbnailDimensions,
+        },
     },
 
     postThumbnail: {
@@ -30,21 +43,22 @@ export default StyleSheet.create({
     },
 
     postScore: {
-        width: 50,
-        marginRight: 10,
+
     },
 
     postTitle: {
         ...fontStyles.header,
-        textAlign: "justify",
-        flex: 1,
+        marginTop: 10,
+        marginBottom: 10,
     },
 
     postAuthor: {
         ...fontStyles.bold,
+        color: Colors.MINT,
     },
 
     postSubreddit: {
         ...fontStyles.bold,
+        color: Colors.MINT,
     }
 });

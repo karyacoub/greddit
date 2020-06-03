@@ -18,5 +18,6 @@ module.exports = {
     "@typescript-eslint/no-inferrable-types": 0,
     "@typescript-eslint/no-non-null-assertion": 0,
     "react/prop-types": 0,
+    "@typescript-eslint/camelcase": 0,
   }
 };

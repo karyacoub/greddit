@@ -13,6 +13,8 @@ describe("PostListing component", () => {
         .score(100)
         .subreddit("subreddit")
         .thumbnail("https://test.url/resource")
+        .thumbnailWidth(100)
+        .thumbnailHeight(200)
         .build();
 
     const defaultProps: IPostListingProps = {
@@ -39,20 +41,21 @@ describe("PostListing component", () => {
         expect(subject.findByTestId("post-listing__subreddit")!.text()).toContain(listing.subreddit);
     });
 
-    it("renders the post thumbnail when the thumbnail is a link", () => {
+    it("renders the post thumbnail when the thumbnail has dimensions", () => {
         expect(subject.findByTestId("post-listing__thumbnail")!.props.source.uri).toEqual(listing.thumbnail);
     });
 
-    it("does not render the post thumbnail when the thumbnail is not a link", async () => {
+    it("does not render the post thumbnail when the thumbnail does not have dimensions (i.e. no thumbnail)", async () => {
         const newListing: IListing = {
             ...listing,
-            thumbnail: "invalid url",
+            thumbnail_height: null,
+            thumbnail_width: null,
         };
         const props = {
             ...defaultProps,
             listing: newListing,
-        }
-        const newSubject = await renderWithHooks(<PostListing {...props} />)
+        };
+        const newSubject = await renderWithHooks(<PostListing {...props} />);
         
         expect(newSubject.findByTestId("post-listing__thumbnail")).toBeNull();
     });
