@@ -7,7 +7,6 @@ const thumbnailDimensions = 100;
 export default StyleSheet.create({
     postListingContainer: {
         flexDirection: "row",
-        justifyContent: "space-between",
         margin: 5,
         padding: 10,
         backgroundColor: Colors.METALLIC_SEAWEED,
@@ -22,19 +21,17 @@ export default StyleSheet.create({
     },
 
     postInfo: {
-        // width: "70%"
         flex: 1,
     },
 
     thumbnailContainer: {
         justifyContent: "center",
-        marginLeft: 10,
-        shadowColor: Colors.BLACK,
-        shadowOpacity: 1,
-        shadowOffset: {
-            width: thumbnailDimensions,
-            height: thumbnailDimensions,
-        },
+    },
+
+    postTitleContainer: {
+        justifyContent: "space-between",
+        marginTop: 10,
+        marginBottom: 10,
     },
 
     postThumbnail: {
@@ -48,8 +45,13 @@ export default StyleSheet.create({
 
     postTitle: {
         ...fontStyles.header,
+    },
+
+    postTitleWithThumbnail: {
+        ...fontStyles.header,
         marginTop: 10,
         marginBottom: 10,
+        width: "70%",
     },
 
     postAuthor: {
