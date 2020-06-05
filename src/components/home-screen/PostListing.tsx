@@ -9,7 +9,7 @@ export interface IPostListingProps {
 }
 
 export const PostListing: React.FunctionComponent<IPostListingProps> = (props) => {
-    const hasThumbnail = props.listing.thumbnail_width && props.listing.thumbnail_height;
+    const hasThumbnail = props.listing.thumbnailWidth && props.listing.thumbnailHeight;
 
     function renderThumbnail() {
         return hasThumbnail

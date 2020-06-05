@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import fontStyles from "./fontStyles";
 import { Colors } from "./Colors";
 
-const thumbnailDimensions = 100;
+export const thumbnailDimensions = 100;
 
 export default StyleSheet.create({
     postListingContainer: {

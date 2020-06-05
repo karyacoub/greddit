@@ -48,8 +48,8 @@ describe("PostListing component", () => {
     it("does not render the post thumbnail when the thumbnail does not have dimensions (i.e. no thumbnail)", async () => {
         const newListing: IListing = {
             ...listing,
-            thumbnail_height: null,
-            thumbnail_width: null,
+            thumbnailHeight: undefined,
+            thumbnailWidth: undefined,
         };
         const props = {
             ...defaultProps,
