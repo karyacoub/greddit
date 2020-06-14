@@ -17,6 +17,7 @@ module.exports = {
   },
   setupFilesAfterEnv: [
     "@testing-library/jest-native/extend-expect",
-    "./src/jestSetup.ts"
+    "./src/jestSetup.ts",
+    "jest-extended"
   ],
 };

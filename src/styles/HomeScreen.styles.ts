@@ -39,6 +39,16 @@ export default StyleSheet.create({
         height: thumbnailDimensions,
     },
 
+    defaultPostThumbnail: {
+        width: thumbnailDimensions,
+        height: thumbnailDimensions,
+        borderColor: Colors.METALLIC_SEAWEED,
+        color: Colors.METALLIC_SEAWEED,
+        backgroundColor: Colors.INDIGO_DYE,
+        borderRadius: 4,
+        borderWidth: 4,
+    },
+
     postScore: {
 
     },

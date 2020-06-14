@@ -15,6 +15,7 @@ export async function renderWithHooks(element: JSX.Element) {
 
 interface ReactTestInstanceExtension {
     text: () => string;
+    exists: () => boolean;
     props: any;
 }
 
@@ -27,16 +28,45 @@ export class TestRendererWithHooks {
         this.subject = create(rootElement);
     }
 
-    private extendTestInstance(instance: ReactTestInstance): TestInstanceWithHooks {
-        function textFn(): string {
-            return instance.findByType(Text).props.children as string;
-        }
-        
-        return {
-            ...instance,
-            props: instance.props,
-            text: textFn,
-        }
+    private static EmptyComponent: React.FunctionComponent = () => null;
+
+    private static doesNotExist(caller: string): any { 
+        throw `Could not call function ${caller} - test instance does not exist`;
+    }
+
+    private static textFn(instance: ReactTestInstance): string {
+        return instance.findByType(Text).props.children as string;
+    }
+
+    private static existsFn(instance: ReactTestInstance): boolean {
+        return instance !== null;
+    }
+
+    private static emptyTestInstance: TestInstanceWithHooks = {
+        instance: null,
+        props: {},
+        parent: null,
+        children: [],
+        type: TestRendererWithHooks.EmptyComponent,
+        findByType: () => TestRendererWithHooks.doesNotExist("findByType"),
+        findByProps: () => TestRendererWithHooks.doesNotExist("findByProps"),
+        findAllByType: () => TestRendererWithHooks.doesNotExist("findAllByType"),
+        findAllByProps: () => TestRendererWithHooks.doesNotExist("findAllByProps"),
+        findAll: () => TestRendererWithHooks.doesNotExist("findAll"),
+        find: () => TestRendererWithHooks.doesNotExist("find"),
+        text: () => TestRendererWithHooks.doesNotExist("text"),
+        exists: () => false
+    }
+
+    private static extendTestInstance(instance: ReactTestInstance | null): TestInstanceWithHooks {    
+        return instance
+            ? {
+                ...instance,
+                props: instance.props,
+                exists: () => TestRendererWithHooks.existsFn(instance),
+                text: () => TestRendererWithHooks.textFn(instance),
+            }
+            : TestRendererWithHooks.emptyTestInstance;
     }
 
     public debug(): string {
@@ -45,18 +75,16 @@ export class TestRendererWithHooks {
 
     public findAllByType(element: ElementType<any>): TestInstanceWithHooks[] {
         return this.subject.root.findAllByType(element)
-            .map((instance: ReactTestInstance) => this.extendTestInstance(instance));
+            .map((instance: ReactTestInstance) => TestRendererWithHooks.extendTestInstance(instance));
     }
 
     public findByType(element: ElementType<any>): TestInstanceWithHooks {
-        return this.extendTestInstance(this.subject.root.findByType(element));
+        return TestRendererWithHooks.extendTestInstance(this.subject.root.findByType(element));
     }
 
-    public findByTestId(testId: string): TestInstanceWithHooks | null {
+    public findByTestId(testId: string): TestInstanceWithHooks {
         const element = this.subject.root.findAll((el) => el.props.testID === testId)[0];
 
-        return element 
-            ? this.extendTestInstance(element)
-            : null;
+        return TestRendererWithHooks.extendTestInstance(element);
     }
 }
