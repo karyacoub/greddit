@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { IListing } from "../../models/Listing.model";
 import styles from "../../styles/HomeScreen.styles";
 import { StyledText } from "../common/StyledText";
