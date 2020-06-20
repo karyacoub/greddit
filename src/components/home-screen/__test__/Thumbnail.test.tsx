@@ -21,12 +21,22 @@ describe("Thumbnail component", () => {
         expect(subject.findByTestId("post-listing__thumbnail").props.source.uri).toEqual(defaultProps.thumbnailUrl);
     });
 
-    it("renders the default thumbnail when thumbnail has no dimensions", async () => {
+    it("does not render any thumbnail when thumbnail is from a self post", async () => {
         const props = {
             ...defaultProps,
-            thumbnailHeight: 0,
-            thumbnailWidth: 0,
-        }
+            thumbnailUrl: "self",
+        };
+        subject = await renderWithHooks(<Thumbnail {...props} />);
+
+        expect(subject.findByTestId("post-listing__thumbnail").exists()).toBeFalse();
+        expect(subject.findByTestId("post-listing__default-thumbnail").exists()).toBeFalse();
+    });
+
+    it("renders the default thumbnail when thumbnail url is default", async () => {
+        const props = {
+            ...defaultProps,
+            thumbnailUrl: "default",
+        };
         subject = await renderWithHooks(<Thumbnail {...props} />);
 
         expect(subject.findByTestId("post-listing__thumbnail").exists()).toBeFalse();

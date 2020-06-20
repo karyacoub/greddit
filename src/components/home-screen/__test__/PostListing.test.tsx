@@ -2,6 +2,7 @@ import React from "react";
 import { IListing, Listing } from "../../../models/Listing.model";
 import { renderWithHooks, TestRendererWithHooks } from "../../../testUtils";
 import { IPostListingProps, PostListing } from "../PostListing";
+import { Thumbnail } from "../Thumbnail";
 
 describe("PostListing component", () => {
     let subject: TestRendererWithHooks;
@@ -41,22 +42,12 @@ describe("PostListing component", () => {
         expect(subject.findByTestId("post-listing__subreddit")!.text()).toContain(listing.subreddit);
     });
 
-    it("renders the post thumbnail when the thumbnail has dimensions", () => {
-        expect(subject.findByTestId("post-listing__thumbnail")!.props.source.uri).toEqual(listing.thumbnail);
-    });
+    it("renders the thumbnail component with the correct props", () => {
+        // expect(subject.findByTestId("post-listing__thumbnail")!.props.source.uri).toEqual(listing.thumbnail);
+        const thumbnail = subject.findByType(Thumbnail);
 
-    // it("does not render the post thumbnail when the thumbnail does not have dimensions (i.e. no thumbnail)", async () => {
-    //     const newListing: IListing = {
-    //         ...listing,
-    //         thumbnailHeight: undefined,
-    //         thumbnailWidth: undefined,
-    //     };
-    //     const props = {
-    //         ...defaultProps,
-    //         listing: newListing,
-    //     };
-    //     const newSubject = await renderWithHooks(<PostListing {...props} />);
-        
-    //     expect(newSubject.findByTestId("post-listing__thumbnail")).toBeNull();
-    // });
+        expect(thumbnail.props.thumbnailUrl).toEqual(defaultProps.listing.thumbnail);
+        expect(thumbnail.props.thumbnailHeight).toEqual(defaultProps.listing.thumbnailHeight);
+        expect(thumbnail.props.thumbnailWidth).toEqual(defaultProps.listing.thumbnailWidth);
+    });
 });

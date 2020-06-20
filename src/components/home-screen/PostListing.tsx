@@ -1,25 +1,16 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { IListing } from "../../models/Listing.model";
 import styles from "../../styles/HomeScreen.styles";
 import { StyledText } from "../common/StyledText";
+import { Thumbnail } from "./Thumbnail";
 
 export interface IPostListingProps {
     listing: IListing;
 }
 
 export const PostListing: React.FunctionComponent<IPostListingProps> = (props) => {
-    const hasThumbnail = props.listing.thumbnailWidth && props.listing.thumbnailHeight;
-
-    function renderThumbnail() {
-        return hasThumbnail
-            ? <View testID="post-listing__thumbnail-container" style={styles.thumbnailContainer}>
-                <Image testID="post-listing__thumbnail" 
-                        source={{uri: props.listing.thumbnail}} 
-                        style={styles.postThumbnail}/> 
-            </View>
-            : null;
-    }
+    const hasThumbnail = props.listing.thumbnail !== "self";
 
     return <View style={styles.postListingContainer}>
             <View style={styles.postInfo}>
@@ -30,7 +21,9 @@ export const PostListing: React.FunctionComponent<IPostListingProps> = (props) =
                 </View>
                 <View style={[styles.postListingRow, styles.postTitleContainer]}>
                     <StyledText testID="post-listing__title" style={hasThumbnail ? styles.postTitleWithThumbnail : styles.postTitle}>{props.listing.title}</StyledText>
-                    {renderThumbnail()}
+                    <Thumbnail thumbnailUrl={props.listing.thumbnail} 
+                               thumbnailWidth={props.listing.thumbnailWidth} 
+                               thumbnailHeight={props.listing.thumbnailHeight} />
                 </View>
                 <View testID="post-listing__action-bar" style={[styles.postListingRow, styles.postListingActionBar]}>
                     <StyledText testID="post-listing__score" style={styles.postScore}>{props.listing.score}</StyledText>
