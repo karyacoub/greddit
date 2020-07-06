@@ -38,3 +38,6 @@ You can find more detailed instructions [here](https://reactnative.dev/docs/envi
 * Build the application by running `npm react-native run-android` in WSL.
   * Note that this could fail with the error `Error: spawn ./gradlew EACCES`. This is because `gradlew` does not have permission to execute. Run `chmod 755 android/gradlew` from within the project root to give the script permission to execute and try to build again.
 * The application should open automatically on your phone (albeit in a failed state). You must start the Metro server to package and run your code on the device by running `npx react-native start`.
+
+## Dependancy Updates:
+I update dependencies for this app using [npm-check-updates](https://www.npmjs.com/package/npm-check-updates). Most of the time, updates can be installed automatically using `ncu -u`, which updates `package.json` automatically. However, if updates contain breaking changes, and `package.json` needs to be updated manually, you may use `ncu` to check which dependancies need to be updated.
