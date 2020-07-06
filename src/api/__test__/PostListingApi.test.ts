@@ -9,6 +9,7 @@ const post1: IListing = Listing.builder()
         .score(100)
         .author("author1")
         .subreddit("subreddit1")
+        .domain("self.subreddit")
         .thumbnail("thumbnail-1")
         .build();
     const post2: IListing = Listing.builder()
@@ -17,6 +18,7 @@ const post1: IListing = Listing.builder()
         .score(200)
         .author("author2")
         .subreddit("subreddit2")
+        .domain("other.domain")
         .thumbnail("thumbnail-2")
         .build();
     const post3: IListing = Listing.builder()
@@ -25,6 +27,7 @@ const post1: IListing = Listing.builder()
         .score(300)
         .author("author3")
         .subreddit("subreddit3")
+        .domain("another.domain")
         .thumbnail("thumbnail-3")
         .build();
 

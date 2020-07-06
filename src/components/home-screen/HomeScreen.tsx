@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { requestPostListing } from "../../api/PostListingApi";
 import { IListing, Listing } from "../../models/Listing.model";
 import { PostListing } from "./PostListing";
+import { StyledText } from "../common/StyledText";
 
 export const HomeScreen: React.FunctionComponent = () => {
     const [currentPosts, setCurrentPosts] = useState<IListing[]>([]);
@@ -18,16 +19,19 @@ export const HomeScreen: React.FunctionComponent = () => {
             });
     }
 
-    function renderPost({item}: {item: IListing}) {
-        return <PostListing listing={item} key={item.name} />;
+    function renderPost({item, index}: {item: IListing, index: number}) {
+        return <View>
+                <StyledText>{index}</StyledText>
+                <PostListing listing={item} key={item.name} />
+            </View>;
     }
 
     useEffect(requestPosts, []);
 
     return <FlatList data={currentPosts}
-                  keyExtractor={(_, idx: number) => `${idx}`}
-                  onEndReached={requestPosts}
-                  renderItem={renderPost} />;
+                     keyExtractor={(_, idx: number) => `${idx}`}
+                     onEndReached={requestPosts}
+                     renderItem={renderPost} />;
 };
 
 HomeScreen.displayName = "HomeScreen";

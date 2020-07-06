@@ -21,7 +21,8 @@ export const PostListing: React.FunctionComponent<IPostListingProps> = (props) =
                 </View>
                 <View style={[styles.postListingRow, styles.postTitleContainer]}>
                     <StyledText testID="post-listing__title" style={hasThumbnail ? styles.postTitleWithThumbnail : styles.postTitle}>{props.listing.title}</StyledText>
-                    <Thumbnail thumbnailUrl={props.listing.thumbnail} 
+                    <Thumbnail domain={props.listing.domain}
+                               thumbnailUrl={props.listing.thumbnail} 
                                thumbnailWidth={props.listing.thumbnailWidth} 
                                thumbnailHeight={props.listing.thumbnailHeight} />
                 </View>

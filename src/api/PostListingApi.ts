@@ -19,6 +19,7 @@ export function requestPostListing(after?: string) {
                     .score(listing.data.score)
                     .author(listing.data.author)
                     .subreddit(listing.data.subreddit)
+                    .domain(listing.data.domain)
                     .thumbnail(listing.data.thumbnail) 
                     .thumbnailWidth(thumbnailWidth)
                     .thumbnailHeight(thumbnailHeight)

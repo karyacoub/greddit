@@ -31,7 +31,7 @@ export class ApiResponse {
         this.data = data;
     }
 
-    public static builder() {
+    public static builder(): ApiReponseBuilder {
         return new ApiReponseBuilder();
     }
 }

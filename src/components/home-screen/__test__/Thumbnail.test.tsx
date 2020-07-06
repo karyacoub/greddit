@@ -7,6 +7,7 @@ describe("Thumbnail component", () => {
     let subject: TestRendererWithHooks;
 
     const defaultProps: IThumbnailProps = {
+        domain: "domain",
         thumbnailUrl: "url",
         thumbnailHeight: 1,
         thumbnailWidth: 1,
@@ -24,7 +25,7 @@ describe("Thumbnail component", () => {
     it("does not render any thumbnail when thumbnail is from a self post", async () => {
         const props = {
             ...defaultProps,
-            thumbnailUrl: "self",
+            domain: "self",
         };
         subject = await renderWithHooks(<Thumbnail {...props} />);
 
@@ -41,5 +42,27 @@ describe("Thumbnail component", () => {
 
         expect(subject.findByTestId("post-listing__thumbnail").exists()).toBeFalse();
         expect(subject.findByTestId("post-listing__default-thumbnail").exists()).toBeTrue();
+    });
+
+    it("renders the nsfw thumbnail when thumbnail url is nsfw", async () => {
+        const props = {
+            ...defaultProps,
+            thumbnailUrl: "nsfw",
+        };
+        subject = await renderWithHooks(<Thumbnail {...props} />);
+
+        expect(subject.findByTestId("post-listing__thumbnail").exists()).toBeFalse();
+        expect(subject.findByTestId("post-listing__nsfw-thumbnail").exists()).toBeTrue();
+    });
+
+    it("renders the spoiler thumbnail when thumbnail url is spoiler", async () => {
+        const props = {
+            ...defaultProps,
+            thumbnailUrl: "spoiler",
+        };
+        subject = await renderWithHooks(<Thumbnail {...props} />);
+
+        expect(subject.findByTestId("post-listing__thumbnail").exists()).toBeFalse();
+        expect(subject.findByTestId("post-listing__spoiler-thumbnail").exists()).toBeTrue();
     });
 });

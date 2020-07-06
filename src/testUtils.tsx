@@ -1,9 +1,8 @@
-// import TestRenderer, { act, ReactTestRenderer } from "react-test-renderer";
 import { ElementType } from "react";
 import { act, create, ReactTestRenderer, ReactTestInstance } from "react-test-renderer";
 import { Text } from "react-native";
 
-export async function renderWithHooks(element: JSX.Element) {
+export async function renderWithHooks(element: JSX.Element): Promise<TestRendererWithHooks> {
     let subject: TestRendererWithHooks | undefined;
 
     await act(async () => {

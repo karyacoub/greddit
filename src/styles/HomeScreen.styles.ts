@@ -27,7 +27,7 @@ export default StyleSheet.create({
 
     thumbnailContainer: {
         justifyContent: "center",
-        shadowOpacity:10.5,
+        shadowOpacity: 10.5,
     },
 
     postTitleContainer: {
@@ -40,20 +40,22 @@ export default StyleSheet.create({
         width: thumbnailDimensions,
         height: thumbnailDimensions,
         borderColor: Colors.INDIGO_DYE,
-        backgroundColor: Colors.METALLIC_SEAWEED,
-        borderRadius: 4,
-        borderWidth: 4,
-    },
-
-    defaultPostThumbnail: {
-        width: thumbnailDimensions,
-        height: thumbnailDimensions,
-        borderColor: Colors.INDIGO_DYE,
-        backgroundColor: Colors.METALLIC_SEAWEED,
+        backgroundColor: Colors.OVERLAY_BLACK,
         borderRadius: 4,
         borderWidth: 4,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+    },
+
+    nsfwThumbnail: {
+        width: thumbnailDimensions,
+        height: thumbnailDimensions,
+        borderColor: Colors.NSFW_RED,
+        backgroundColor: Colors.OVERLAY_BLACK,
+        borderRadius: 4,
+        borderWidth: 4,
+        justifyContent: "center",
+        alignItems: "center",
     },
 
     postScore: {

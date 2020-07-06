@@ -4,6 +4,7 @@ export interface IListing {
     score: number;
     author: string;
     subreddit: string;
+    domain: string;
     thumbnail: string;
     thumbnailWidth?: number;
     thumbnailHeight?: number;
@@ -20,6 +21,7 @@ export class Listing {
     public score: number;
     public author: string;
     public subreddit: string;
+    public domain: string;
     public thumbnail: string;
     public thumbnailWidth?: number;
     public thumbnailHeight?: number;
@@ -30,6 +32,7 @@ export class Listing {
             score: number, 
             author: string, 
             subreddit: string, 
+            domain: string,
             thumbnail: string,
             thumbnailWidth?: number,
             thumbnailHeight?: number,
@@ -39,12 +42,13 @@ export class Listing {
             this.score = score;
             this.author = author;
             this.subreddit = subreddit;
+            this.domain = domain;
             this.thumbnail = thumbnail;
             this.thumbnailWidth = thumbnailWidth;
             this.thumbnailHeight = thumbnailHeight;
     }
 
-    public static builder() {
+    public static builder(): ListingBuilder {
         return new ListingBuilder();
     }
 }
@@ -55,6 +59,7 @@ class ListingBuilder {
     private mScore: number = 0;
     private mAuthor: string = "";
     private mSubreddit: string = "";
+    private mDomain: string = "";
     private mThumbnail: string = "";
     private mThumbnailWidth?: number = undefined;
     private mThumbnailHeight?: number = undefined;
@@ -99,6 +104,11 @@ class ListingBuilder {
         return this;
     }
 
+    public domain(value: string) {
+        this.mDomain = value;
+        return this;
+    }
+
     public build() {
         return new Listing(
             this.mTitle,
@@ -106,6 +116,7 @@ class ListingBuilder {
             this.mScore,
             this.mAuthor,
             this.mSubreddit,
+            this.mDomain,
             this.mThumbnail,
             this.mThumbnailWidth,
             this.mThumbnailHeight,
