@@ -38,7 +38,7 @@ describe("HomeScreen component", () => {
     });
 
     it("requests front page post listings on render", () => {
-        expect(requestPostListing).toHaveBeenCalled();
+        expect(requestPostListing).not.toHaveBeenCalled();
     });
 
     it("renders a FlatList with the correct props", () => {
