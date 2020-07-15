@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import fontStyles from "./fontStyles";
-import { Colors } from "./Colors";
+import { Colors, PRIMARY_COLOR, SECONDARY_COLOR, LINK_COLOR } from "./Colors";
 
 export const thumbnailDimensions = 100;
 
@@ -9,12 +9,13 @@ export default StyleSheet.create({
         flexDirection: "row",
         margin: 5,
         padding: 10,
-        backgroundColor: Colors.METALLIC_SEAWEED,
+        backgroundColor: SECONDARY_COLOR,
         borderRadius: 4,
     },
 
     postListingRow: {
         flexDirection: "row",
+        backgroundColor: SECONDARY_COLOR,
     },
 
     postListingActionBar: {
@@ -39,7 +40,7 @@ export default StyleSheet.create({
     postThumbnail: {
         width: thumbnailDimensions,
         height: thumbnailDimensions,
-        borderColor: Colors.INDIGO_DYE,
+        borderColor: PRIMARY_COLOR,
         backgroundColor: Colors.OVERLAY_BLACK,
         borderRadius: 4,
         borderWidth: 4,
@@ -75,11 +76,11 @@ export default StyleSheet.create({
 
     postAuthor: {
         ...fontStyles.bold,
-        color: Colors.MINT,
+        color: LINK_COLOR
     },
 
     postSubreddit: {
         ...fontStyles.bold,
-        color: Colors.MINT,
+        color: LINK_COLOR,
     }
 });
