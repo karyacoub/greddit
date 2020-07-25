@@ -1,25 +1,31 @@
 import { StyleSheet } from "react-native";
 import fontStyles from "./fontStyles";
-import { Colors, PRIMARY_COLOR, SECONDARY_COLOR, LINK_COLOR } from "./Colors";
+import { Colors, BACKGROUND_COLOR, POST_LISTING_COLOR, LINK_COLOR, ACTION_BAR_COLOR } from "./Colors";
 
 export const thumbnailDimensions = 100;
 
 export default StyleSheet.create({
     postListingContainer: {
-        flexDirection: "row",
         margin: 5,
+    },
+
+    postListing: {
+        backgroundColor: POST_LISTING_COLOR,
         padding: 10,
-        backgroundColor: SECONDARY_COLOR,
-        borderRadius: 4,
+        borderTopLeftRadius: 4,
+        borderTopRightRadius: 4,
     },
 
     postListingRow: {
         flexDirection: "row",
-        backgroundColor: SECONDARY_COLOR,
     },
 
     postListingActionBar: {
-        
+        backgroundColor: ACTION_BAR_COLOR,
+        padding: 10,
+        justifyContent: "center",
+        borderBottomLeftRadius: 4,
+        borderBottomRightRadius: 4,
     },
 
     postInfo: {
@@ -40,7 +46,7 @@ export default StyleSheet.create({
     postThumbnail: {
         width: thumbnailDimensions,
         height: thumbnailDimensions,
-        borderColor: PRIMARY_COLOR,
+        borderColor: BACKGROUND_COLOR,
         backgroundColor: Colors.OVERLAY_BLACK,
         borderRadius: 4,
         borderWidth: 4,

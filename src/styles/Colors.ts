@@ -1,9 +1,7 @@
 export enum Colors {
-    INDIGO_DYE = "#08415C",
-    METALLIC_SEAWEED = "#388697",
     BACKGROUND_GRAY = "#323238",
     POST_LISTING_GRAY = "#3F3F45",
-    MINT = "#B5FFE1",
+    ACTION_BAR_PURPLE = "#4F395E",
     PURPLE = "#CA91F2",
     WHITE = "#FFFFFF",
     BLACK = "#000000",
@@ -12,6 +10,7 @@ export enum Colors {
     NSFW_RED = "#A63039",
 }
 
-export const PRIMARY_COLOR = Colors.BACKGROUND_GRAY;
-export const SECONDARY_COLOR = Colors.POST_LISTING_GRAY;
+export const BACKGROUND_COLOR = Colors.BACKGROUND_GRAY;
+export const POST_LISTING_COLOR = Colors.POST_LISTING_GRAY;
+export const ACTION_BAR_COLOR = Colors.ACTION_BAR_PURPLE;
 export const LINK_COLOR = Colors.PURPLE;

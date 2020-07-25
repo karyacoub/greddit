@@ -9,6 +9,8 @@ export const HomeScreen: React.FunctionComponent = () => {
     const [currentPosts, setCurrentPosts] = useState<IListing[]>([]);
     const [lastPostName, setLastPostName] = useState<string | undefined>()
 
+    const showPostIndexes = false;
+
     function requestPosts() {
         requestPostListing(lastPostName)
             .then((posts: Listing[]) => {
@@ -21,7 +23,7 @@ export const HomeScreen: React.FunctionComponent = () => {
 
     function renderPost({item, index}: {item: IListing, index: number}) {
         return <View>
-                <StyledText>{index}</StyledText>
+                {showPostIndexes ? <StyledText>{index}</StyledText> : null /* for debugging */}
                 <PostListing listing={item} key={item.name} />
             </View>;
     }

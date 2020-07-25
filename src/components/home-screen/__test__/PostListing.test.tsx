@@ -3,6 +3,7 @@ import { IListing, Listing } from "../../../models/Listing.model";
 import { renderWithHooks, TestRendererWithHooks } from "../../../testUtils";
 import { IPostListingProps, PostListing } from "../PostListing";
 import { Thumbnail } from "../Thumbnail";
+import { NumberUtil } from "../../../util/numberUtil";
 
 describe("PostListing component", () => {
     let subject: TestRendererWithHooks;
@@ -31,7 +32,8 @@ describe("PostListing component", () => {
     });
 
     it("renders the post score", () => {
-        expect(subject.findByTestId("post-listing__score")!.text()).toEqual(listing.score);
+        expect(subject.findByTestId("post-listing__score").text())
+            .toEqual(NumberUtil.formatToShortNumber(listing.score));
     });
 
     it("renders the post author", () => {
