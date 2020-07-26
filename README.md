@@ -41,3 +41,11 @@ You can find more detailed instructions [here](https://reactnative.dev/docs/envi
 
 ## Dependancy Updates:
 I update dependencies for this app using [npm-check-updates](https://www.npmjs.com/package/npm-check-updates). Most of the time, updates can be installed automatically using `ncu -u`, which updates `package.json` automatically. However, if updates contain breaking changes, and `package.json` needs to be updated manually, you may use `ncu` to check which dependancies need to be updated.
+
+## Immediate App Crashes Upon Build
+Occasionally, after updating dependencies, the app will crash immediately after being installed onto the emulator. If this happens, run the following command:
+
+```
+<project-root>/androdid/gradlew clean
+```
+After Gradle successfully cleans the cache, the app should run normally on next build.
