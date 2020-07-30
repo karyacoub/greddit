@@ -1,9 +1,9 @@
 import { IHomeScreenState, homeScreenInitialState } from "../components/home-screen/HomeScreen.reducer";
 
-export interface IApplicationInitialState {
+export interface IApplicationState {
     currentPostsState: IHomeScreenState;
 }
 
-export const applicationInitialState: IApplicationInitialState = {
+export const applicationInitialState: IApplicationState = {
     currentPostsState: homeScreenInitialState,
 };
