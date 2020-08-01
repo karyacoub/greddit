@@ -1,6 +1,6 @@
 import { ApiResponse, IApiData, initialApiData } from "../../models/ApiReposnse.model";
 import { Listing, IListing } from "../../models/Listing.model";
-import { requestPostListing } from "../PostListingApi";
+import { HomeScreenApi } from "../HomeScreenApi";
 const nock = require("nock");
 
 const post1: IListing = Listing.builder()
@@ -59,7 +59,7 @@ describe("requestPostListing", () => {
             .get("/.json?limit=50")
             .reply(200, expectedResponse);
 
-        const response = await requestPostListing();
+        const response = await HomeScreenApi.requestPostListings();
 
         expect(response).toEqual([post1, post2, post3]);
     });
@@ -87,7 +87,7 @@ describe("requestPostListing", () => {
             .get(`/.json?limit=50&after=${post1.name}`)
             .reply(200, expectedResponse);
 
-        const response = await requestPostListing(post1.name);
+        const response = await HomeScreenApi.requestPostListings(post1.name);
 
         expect(response).toEqual([post2, post3]);
     });
@@ -97,7 +97,7 @@ describe("requestPostListing", () => {
             .get("/.json?limit=50")
             .reply(500, "request failed");
 
-        const response = await requestPostListing();
+        const response = await HomeScreenApi.requestPostListings();
         
         expect(response).toEqual([]);
     });

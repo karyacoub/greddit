@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
-import { requestPostListing } from "../../api/PostListingApi";
+import { HomeScreenApi } from "../../api/HomeScreenApi";
 import { IListing, Listing } from "../../models/Listing.model";
 import { PostListing } from "./PostListing";
 import { StyledText } from "../common/StyledText";
@@ -12,7 +12,7 @@ export const HomeScreen: React.FunctionComponent = () => {
     const showPostIndexes = false;
 
     function requestPosts() {
-        requestPostListing(lastPostName)
+        HomeScreenApi.requestPostListings(lastPostName)
             .then((posts: Listing[]) => {
                 setCurrentPosts(currentPosts.concat(posts));
                 setLastPostName(posts[posts.length - 1].name);

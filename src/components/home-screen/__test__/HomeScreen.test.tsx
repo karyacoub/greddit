@@ -1,9 +1,9 @@
-jest.mock("../../../api/PostListingApi");
+jest.mock("../../../api/HomeScreenApi");
 
 import React from "react";
 import { FlatList } from "react-native";
 import { act } from "react-test-renderer";
-import { requestPostListing } from "../../../api/PostListingApi";
+import { HomeScreenApi } from "../../../api/HomeScreenApi";
 import { Listing } from "../../../models/Listing.model";
 import { renderWithHooks, TestRendererWithHooks } from "../../../testUtils";
 import { HomeScreen } from "../HomeScreen";
@@ -31,14 +31,14 @@ describe("HomeScreen component", () => {
     ]
 
     beforeAll(async () => {
-        (requestPostListing as jest.Mock)
+        (HomeScreenApi.requestPostListings as jest.Mock)
             .mockResolvedValue(postListings);
         
         subject = await renderWithHooks(<HomeScreen />);
     });
 
     it("requests front page post listings on render", () => {
-        expect(requestPostListing).toHaveBeenCalled();
+        expect(HomeScreenApi.requestPostListings).toHaveBeenCalled();
     });
 
     it("renders a FlatList with the correct props", () => {
@@ -61,6 +61,6 @@ describe("HomeScreen component", () => {
             subject.findByType(FlatList).props.onEndReached();
         })
 
-        expect(requestPostListing).toHaveBeenCalledWith(postListings[2].name);
+        expect(HomeScreenApi.requestPostListings).toHaveBeenCalledWith(postListings[2].name);
     });
 });

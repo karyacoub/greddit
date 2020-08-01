@@ -54,7 +54,7 @@
 
 	"Typescript print statement": {
 		"prefix": ["clog"],
-		"body": ["console.log(\"$0\")"],
+		"body": ["console.log(\"=============> $0\")"],
 		"description": "A Typescript print statement."
 	}
 }
