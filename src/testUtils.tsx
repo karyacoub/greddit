@@ -1,14 +1,22 @@
 import { ElementType } from "react";
-import { act, create, ReactTestRenderer, ReactTestInstance } from "react-test-renderer";
 import { Text } from "react-native";
-import configureMockStore from "redux-mock-store";
+import { act, create, ReactTestInstance, ReactTestRenderer } from "react-test-renderer";
+import { createStore } from "redux";
 
 // used when having multiple async tests causes contamination between promises
 export const flushPromises = () => new Promise(setImmediate);
 
 // used in reducer tests
-const storeConfigCreator = configureMockStore();
-export const mockStore = storeConfigCreator();
+export function fireAction<State>(reducer: any, initialState: State, action: string, payload?: any): State {
+    const store = createStore(reducer, initialState);
+
+    store.dispatch({
+        type: action,
+        payload,
+    });
+
+    return store.getState() as State;
+}
 
 // adds some useful functions to react test renderer for testing
 export async function renderWithHooks(element: JSX.Element): Promise<TestRendererWithHooks> {

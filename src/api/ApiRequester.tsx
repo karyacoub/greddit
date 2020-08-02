@@ -1,9 +1,12 @@
 import * as React from "react";
-import { useEffect } from "react";
-import { IApiRequestPair } from "./RequestPairs";
-import * as Redux from "redux";
-import { connect, useStore } from "react-redux";
+import { useEffect, useState } from "react";
+import { useStore, ConnectedComponent } from "react-redux";
 import { IApplicationState } from "../store/applicationInitialState";
+import { IApiRequestPair } from "./RequestPairs";
+import { NOT_REQUESTED, IRequestState, REQUEST_SUCCEEDED, RequestStateTypes } from "./apiUtils";
+import { LoadingSpinner } from "../components/common/LoadingSpinner";
+import { ErrorScreen } from "../components/common/ErrorScreen";
+import { View } from "react-native";
 
 export interface IApiRequesterProps {
     requestPairs: IApiRequestPair[];
@@ -13,24 +16,80 @@ export interface IApiRequesterProps {
 enum RequestPairsStatus {
     NONE_REQUESTED,
     SOME_REQUESTED,
-    ALL_REQUESTED,
+    SOME_FAILED,
     ALL_SUCCEEDED,
-    ALL_FAILED,
 }
 
 export const ApiRequester: React.FunctionComponent<IApiRequesterProps> = (props) => {
+    const [showLoading, setShowLoading] = useState<boolean>(true);
+    const [showComponent, setShowComponent] = useState<boolean>(false);
+    const [showError, setShowError] = useState<boolean>(false);
+
     const applicationState: IApplicationState = useStore().getState();
+
+    function getRequestPairStatus(): RequestPairsStatus {
+        const selectorValues: IRequestState<any>[] = props.requestPairs
+            .map((requestPair: IApiRequestPair) => requestPair.selector(applicationState));
+
+        if (selectorValues.every((selectorValue) => selectorValue.kind === RequestStateTypes.NOT_REQUESTED)) {
+            return RequestPairsStatus.NONE_REQUESTED;
+        } else if (selectorValues.every((selectorValue) => selectorValue.kind === RequestStateTypes.REQUEST_SUCCEEDED)) {
+            return RequestPairsStatus.ALL_SUCCEEDED;
+        } else if (selectorValues.some((selectorValue) => selectorValue.kind === RequestStateTypes.REQUEST_FAILED)) {
+            return RequestPairsStatus.SOME_FAILED;
+        } else {
+            return RequestPairsStatus.SOME_REQUESTED;
+        }
+    }
+
+    function renderLoadingComponent() {
+        return showLoading
+            ? <LoadingSpinner />
+            : null;
+    }
+
+    function renderComponent() {
+        return showComponent
+            ? <View testID="api-requester__child">{props.children}</View>
+            : null;
+    }
+
+    function renderError() {
+        return showError
+            ? <ErrorScreen />
+            : null;
+    }
     
     useEffect(() => {
-        const selectorValues: RequestPairsStatus[] = props.requestPairs
-            .map((requestPair: IApiRequestPair) => requestPair.selector(applicationState));
-    });
+        const requestPairStatus = getRequestPairStatus();
+
+        if (requestPairStatus === RequestPairsStatus.NONE_REQUESTED || requestPairStatus === RequestPairsStatus.SOME_REQUESTED) {
+            setShowLoading(true);
+            setShowComponent(false);
+            setShowError(false);
+        } else if (requestPairStatus === RequestPairsStatus.ALL_SUCCEEDED) {
+            setShowLoading(false);
+            setShowComponent(true);
+            setShowError(false);
+        } else if (requestPairStatus === RequestPairsStatus.SOME_FAILED) {
+            setShowLoading(false);
+            setShowComponent(false);
+            setShowError(true);
+        }
+    }, [applicationState]);
     
-    return <span>{props.children}</span>;
+    return <span>
+            {renderLoadingComponent()}
+            {renderComponent()}
+            {renderError()}
+        </span>;
 }
 
 export function ApiRequesterWrapper(Component: React.FunctionComponent, requestPairs: IApiRequestPair[]) {
-    return <ApiRequester requestPairs={requestPairs}>
-        <Component />
-    </ApiRequester>;
+    const Wrapper: React.FunctionComponent = () =>
+         <ApiRequester requestPairs={requestPairs}>
+            <Component />
+        </ApiRequester>;
+
+    return Wrapper;
 }

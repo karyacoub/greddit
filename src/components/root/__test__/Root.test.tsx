@@ -1,16 +1,19 @@
+import "jest-extended";
 import React from "react";
-import { create, ReactTestRenderer } from "react-test-renderer";
-import { HomeScreen } from "../../home-screen/HomeScreen";
+import { createStore } from "redux";
+import { renderWithHooks, TestRendererWithHooks } from "../../../testUtils";
+import HomeScreen from "../../home-screen/HomeScreen";
 import { Root } from "../Root";
 
 describe("Root component", () => {
-    let subject: ReactTestRenderer;
+    let subject: TestRendererWithHooks;
 
-    beforeAll(() => {
-        subject = create(<Root />)
+    beforeAll(async () => {
+        (createStore as jest.Mock) = jest.fn();
+        subject = await renderWithHooks(<Root />)
     });
 
     it("renders the HomeScreen component", () => {
-        expect(subject.root.findByType(HomeScreen)).toBeTruthy();
+        expect(subject.findByType(HomeScreen).exists()).toBeTrue();
     });
 });

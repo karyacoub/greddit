@@ -4,8 +4,17 @@ import { HomeScreenApi } from "../../api/HomeScreenApi";
 import { IListing, Listing } from "../../models/Listing.model";
 import { PostListing } from "./PostListing";
 import { StyledText } from "../common/StyledText";
+import { connect } from "react-redux";
+import { IApplicationState } from "../../store/applicationInitialState";
+import { displayedPostsSelector } from "../../store/mainReducerSelectors";
+import { ApiRequesterWrapper } from "../../api/ApiRequester";
+import { displayedPostsRequestPair } from "../../api/RequestPairs";
 
-export const HomeScreen: React.FunctionComponent = () => {
+export interface IHomeScreenPropsFromStore {
+    displayedPosts: IListing[];
+}
+
+export const HomeScreen: React.FunctionComponent<IHomeScreenPropsFromStore> = () => {
     const [currentPosts, setCurrentPosts] = useState<IListing[]>([]);
     const [lastPostName, setLastPostName] = useState<string | undefined>()
 
@@ -36,4 +45,16 @@ export const HomeScreen: React.FunctionComponent = () => {
                      renderItem={renderPost} />;
 };
 
-HomeScreen.displayName = "HomeScreen";
+export function mapStateToProps(state: IApplicationState): IHomeScreenPropsFromStore {
+    return {
+        displayedPosts: displayedPostsSelector(state).data!,
+    };
+}
+
+const connectedComponent = connect(mapStateToProps)(HomeScreen);
+
+export default ApiRequesterWrapper(
+    connectedComponent, [
+        displayedPostsRequestPair,
+    ],
+);

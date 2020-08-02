@@ -1,4 +1,5 @@
 jest.mock("../../../api/HomeScreenApi");
+jest.mock("../../../store/mainReducerSelectors");
 
 import React from "react";
 import { FlatList } from "react-native";
@@ -6,8 +7,11 @@ import { act } from "react-test-renderer";
 import { HomeScreenApi } from "../../../api/HomeScreenApi";
 import { Listing } from "../../../models/Listing.model";
 import { renderWithHooks, TestRendererWithHooks } from "../../../testUtils";
-import { HomeScreen } from "../HomeScreen";
+import { HomeScreen, mapStateToProps, IHomeScreenPropsFromStore } from "../HomeScreen";
 import { PostListing } from "../PostListing";
+import { applicationInitialState } from "../../../store/applicationInitialState";
+import { displayedPostsSelector } from "../../../store/mainReducerSelectors";
+import { REQUEST_FAILED } from "../../../api/apiUtils";
 
 describe("HomeScreen component", () => {
     let subject: TestRendererWithHooks;
@@ -28,13 +32,17 @@ describe("HomeScreen component", () => {
             .name("post-name-3")
             .score(300)
             .build(),
-    ]
+    ];
+
+    const defaultProps: IHomeScreenPropsFromStore = {
+        displayedPosts: postListings,
+    }
 
     beforeAll(async () => {
         (HomeScreenApi.requestPostListings as jest.Mock)
             .mockResolvedValue(postListings);
         
-        subject = await renderWithHooks(<HomeScreen />);
+        subject = await renderWithHooks(<HomeScreen {...defaultProps} />);
     });
 
     it("requests front page post listings on render", () => {
@@ -62,5 +70,13 @@ describe("HomeScreen component", () => {
         })
 
         expect(HomeScreenApi.requestPostListings).toHaveBeenCalledWith(postListings[2].name);
+    });
+});
+
+describe("mapStateToProps", () => {
+    it("maps state to component props", () => {
+        (displayedPostsSelector as jest.Mock).mockReturnValue(REQUEST_FAILED("oh no"));
+
+        expect(mapStateToProps(applicationInitialState).displayedPosts).toEqual("oh no");
     });
 });
