@@ -14,7 +14,7 @@ export interface IHomeScreenPropsFromStore {
     displayedPosts: IListing[];
 }
 
-export const HomeScreen: React.FunctionComponent<IHomeScreenPropsFromStore> = () => {
+export const HomeScreen: React.FunctionComponent<IHomeScreenPropsFromStore> = (props) => {
     const [currentPosts, setCurrentPosts] = useState<IListing[]>([]);
     const [lastPostName, setLastPostName] = useState<string | undefined>()
 
@@ -39,7 +39,7 @@ export const HomeScreen: React.FunctionComponent<IHomeScreenPropsFromStore> = ()
 
     useEffect(requestPosts, []);
 
-    return <FlatList data={currentPosts}
+    return <FlatList data={props.displayedPosts}
                      keyExtractor={(_, idx: number) => `${idx}`}
                      onEndReached={requestPosts}
                      renderItem={renderPost} />;

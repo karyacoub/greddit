@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { useStore, ConnectedComponent } from "react-redux";
+import { useStore, ConnectedComponent, useDispatch } from "react-redux";
 import { IApplicationState } from "../store/applicationInitialState";
 import { IApiRequestPair } from "./RequestPairs";
 import { NOT_REQUESTED, IRequestState, REQUEST_SUCCEEDED, RequestStateTypes } from "./apiUtils";
@@ -26,6 +26,15 @@ export const ApiRequester: React.FunctionComponent<IApiRequesterProps> = (props)
     const [showError, setShowError] = useState<boolean>(false);
 
     const applicationState: IApplicationState = useStore().getState();
+    const dispatch = useDispatch();
+
+    function requestApis() {
+        props.requestPairs.forEach((requestPair) => {
+            if (requestPair.selector(applicationState).kind === RequestStateTypes.NOT_REQUESTED) {
+                requestPair.apiRequest(dispatch);
+            }
+        })
+    }
 
     function getRequestPairStatus(): RequestPairsStatus {
         const selectorValues: IRequestState<any>[] = props.requestPairs
@@ -39,6 +48,24 @@ export const ApiRequester: React.FunctionComponent<IApiRequesterProps> = (props)
             return RequestPairsStatus.SOME_FAILED;
         } else {
             return RequestPairsStatus.SOME_REQUESTED;
+        }
+    }
+
+    function setComponentDisplayed(requestPairStatus: RequestPairsStatus) {
+        if (requestPairStatus === RequestPairsStatus.NONE_REQUESTED || requestPairStatus === RequestPairsStatus.SOME_REQUESTED) {
+            setShowLoading(true);
+            setShowComponent(false);
+            setShowError(false);
+
+            requestApis();
+        } else if (requestPairStatus === RequestPairsStatus.ALL_SUCCEEDED) {
+            setShowLoading(false);
+            setShowComponent(true);
+            setShowError(false);
+        } else if (requestPairStatus === RequestPairsStatus.SOME_FAILED) {
+            setShowLoading(false);
+            setShowComponent(false);
+            setShowError(true);
         }
     }
 
@@ -63,27 +90,15 @@ export const ApiRequester: React.FunctionComponent<IApiRequesterProps> = (props)
     useEffect(() => {
         const requestPairStatus = getRequestPairStatus();
 
-        if (requestPairStatus === RequestPairsStatus.NONE_REQUESTED || requestPairStatus === RequestPairsStatus.SOME_REQUESTED) {
-            setShowLoading(true);
-            setShowComponent(false);
-            setShowError(false);
-        } else if (requestPairStatus === RequestPairsStatus.ALL_SUCCEEDED) {
-            setShowLoading(false);
-            setShowComponent(true);
-            setShowError(false);
-        } else if (requestPairStatus === RequestPairsStatus.SOME_FAILED) {
-            setShowLoading(false);
-            setShowComponent(false);
-            setShowError(true);
-        }
+        setComponentDisplayed(requestPairStatus);
     }, [applicationState]);
-    
-    return <span>
+
+    return <View>
             {renderLoadingComponent()}
             {renderComponent()}
             {renderError()}
-        </span>;
-}
+        </View>;
+};
 
 export function ApiRequesterWrapper(Component: React.FunctionComponent, requestPairs: IApiRequestPair[]) {
     const Wrapper: React.FunctionComponent = () =>

@@ -2,11 +2,11 @@ jest.mock("react-redux");
 
 import "jest-extended";
 import * as React from "react";
-import { useStore } from "react-redux";
+import { useStore, useDispatch } from "react-redux";
 import { ErrorScreen } from "../../components/common/ErrorScreen";
 import { LoadingSpinner } from "../../components/common/LoadingSpinner";
 import { applicationInitialState } from "../../store/applicationInitialState";
-import { renderWithHooks, TestRendererWithHooks, flushPromises } from "../../testUtils";
+import { renderWithHooks, TestRendererWithHooks } from "../../testUtils";
 import { ApiRequester, ApiRequesterWrapper, IApiRequesterProps } from "../ApiRequester";
 import { NOT_REQUESTED, REQUEST_FAILED, REQUEST_SUCCEEDED } from "../apiUtils";
 import { IApiRequestPair } from "../RequestPairs";
@@ -34,9 +34,12 @@ describe("ApiRequester component", () => {
         requestPairs: [requestPair1, requestPair2],
         children: defaultChild,
     }
+    
+    const dispatch = jest.fn();
 
     beforeEach(async () => {
         (useStore as jest.Mock).mockReturnValue(mockStore);
+        (useDispatch as jest.Mock).mockReturnValue(dispatch);
         
         subject = await renderWithHooks(<ApiRequester {...defaultProps} />);
     });
@@ -65,22 +68,35 @@ describe("ApiRequester component", () => {
         expect(subject.findByTestId("api-requester__child").exists()).toBeTrue();
     });
 
-    // it("renders error screen if any values in the state are failures", async () => {
-    //     const failedRequestPair: IApiRequestPair = {
-    //         apiRequest: jest.fn(),
-    //         selector: jest.fn().mockReturnValue(REQUEST_FAILED("oh no")),
-    //     };
+    it("renders error screen if any values in the state are failures", async () => {
+        const failedRequestPair: IApiRequestPair = {
+            apiRequest: jest.fn(),
+            selector: jest.fn().mockReturnValue(REQUEST_FAILED("oh no")),
+        };
 
-    //     const props = {
-    //         ...defaultProps,
-    //         requestPairs: [failedRequestPair],
-    //     };
-    //     subject = await renderWithHooks(<ApiRequester {...props} />);
+        const props = {
+            ...defaultProps,
+            requestPairs: [failedRequestPair],
+        };
+        subject = await renderWithHooks(<ApiRequester {...props} />);
 
-    //     console.log("=============> ", subject.debug());
+        expect(subject.findByType(ErrorScreen).exists()).toBeTrue();
+    });
 
-    //     expect(subject.findByType(ErrorScreen).exists()).toBeTrue();
-    // });
+    it("requests apis if any values in the state are not requested", async () => {
+        const notRequestedPair: IApiRequestPair = {
+            apiRequest: jest.fn(),
+            selector: jest.fn().mockReturnValue(NOT_REQUESTED),
+        };
+
+        const props = {
+            ...defaultProps,
+            requestPairs: [notRequestedPair],
+        };
+        subject = await renderWithHooks(<ApiRequester {...props} />);
+
+        expect(notRequestedPair.apiRequest).toHaveBeenCalled();
+    });
 });
 
 describe("ApiRequesterWrapper", async () => {

@@ -29,7 +29,7 @@ export function REQUEST_SUCCEEDED(data: any): IRequestState<any> {
 
 export function REQUEST_FAILED(data: any): IRequestState<any> {
     return {
-        kind: RequestStateTypes.REQUEST_SUCCEEDED,
+        kind: RequestStateTypes.REQUEST_FAILED,
         data,
     }
 }
