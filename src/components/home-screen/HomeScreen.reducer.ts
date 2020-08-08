@@ -1,7 +1,7 @@
-import { IListing } from "../../models/Listing.model";
+import { Action, handleActions } from "redux-actions";
 import { IRequestState, NOT_REQUESTED, REQUESTED, REQUEST_SUCCEEDED } from "../../api/apiUtils";
+import { IListing } from "../../models/Listing.model";
 import { HomeScreenActions } from "./HomeScreen.actions";
-import { handleActions, ReducerMap, Action } from "redux-actions"
 
 export interface IHomeScreenState { 
     displayedPosts: IRequestState<IListing[]>;

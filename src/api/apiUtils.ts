@@ -1,10 +1,10 @@
 import Axios, { AxiosResponse } from "axios";
 
 export enum RequestStateTypes {
-    NOT_REQUESTED,
-    REQUESTED,
-    REQUEST_SUCCEEDED,
-    REQUEST_FAILED,
+    NOT_REQUESTED = "NOT_REQUESTED",
+    REQUESTED = "REQUESTED",
+    REQUEST_SUCCEEDED = "REQUEST_SUCCEEDED",
+    REQUEST_FAILED = "REQUEST_FAILED",
 }
 
 export interface IRequestState<T> {
