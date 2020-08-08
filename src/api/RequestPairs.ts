@@ -9,7 +9,9 @@ export interface IApiRequestPair {
     selector: (state: IApplicationState) => IRequestState<any>;
 }
 
-export const displayedPostsRequestPair: IApiRequestPair = {
-    apiRequest: requestPostListings,
-    selector: displayedPostsSelector,
-}
+export const displayedPostsRequestPair = (after?: string): IApiRequestPair => {
+    return {
+        apiRequest: requestPostListings(after),
+        selector: displayedPostsSelector,
+    };
+};

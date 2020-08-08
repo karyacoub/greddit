@@ -18,7 +18,7 @@ describe("HomeScreen actions", () => {
         it("dispatches DISPLAYED_POSTS_REQUESTED", () => {
             (HomeScreenApi.requestPostListings as jest.Mock).mockResolvedValue(successfulPayload);
 
-            requestPostListings(dispatch);
+            requestPostListings()(dispatch);
 
             expect(dispatch).toHaveBeenCalledWith({ type: HomeScreenActions.DISPLAYED_POSTS_REQUESTED });
         });
@@ -26,7 +26,7 @@ describe("HomeScreen actions", () => {
         it("dispatches DISPLAYED_POSTS_REQUEST_SUCCEEDED with a payload on api request success", async () => {
             (HomeScreenApi.requestPostListings as jest.Mock).mockResolvedValue(successfulPayload);
 
-            await requestPostListings(dispatch);
+            await requestPostListings()(dispatch);
 
             expect(dispatch).toHaveBeenCalledWith({
                 type: HomeScreenActions.DISPLAYED_POSTS_REQUEST_SUCCEEDED,
@@ -38,7 +38,7 @@ describe("HomeScreen actions", () => {
             const expectedPayload = "oh no";
             (HomeScreenApi.requestPostListings as jest.Mock).mockRejectedValue(expectedPayload);
 
-            await requestPostListings(dispatch);
+            await requestPostListings()(dispatch);
             await flushPromises();
 
             expect(dispatch).toHaveBeenCalledWith({

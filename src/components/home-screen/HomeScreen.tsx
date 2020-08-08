@@ -15,20 +15,20 @@ export interface IHomeScreenPropsFromStore {
 }
 
 export const HomeScreen: React.FunctionComponent<IHomeScreenPropsFromStore> = (props) => {
-    const [currentPosts, setCurrentPosts] = useState<IListing[]>([]);
-    const [lastPostName, setLastPostName] = useState<string | undefined>()
+    // const [currentPosts, setCurrentPosts] = useState<IListing[]>([]);
+    // const [lastPostName, setLastPostName] = useState<string | undefined>()
 
     const showPostIndexes = false;
 
-    function requestPosts() {
-        HomeScreenApi.requestPostListings(lastPostName)
-            .then((posts: Listing[]) => {
-                setCurrentPosts(currentPosts.concat(posts));
-                setLastPostName(posts[posts.length - 1].name);
-            }).catch((error) => {
-                console.error("Error: could not retrive posts.", error);
-            });
-    }
+    // function requestPosts() {
+    //     HomeScreenApi.requestPostListings(lastPostName)
+    //         .then((posts: Listing[]) => {
+    //             setCurrentPosts(currentPosts.concat(posts));
+    //             setLastPostName(posts[posts.length - 1].name);
+    //         }).catch((error) => {
+    //             console.error("Error: could not retrive posts.", error);
+    //         });
+    // }
 
     function renderPost({item, index}: {item: IListing, index: number}) {
         return <View>
@@ -37,11 +37,11 @@ export const HomeScreen: React.FunctionComponent<IHomeScreenPropsFromStore> = (p
             </View>;
     }
 
-    useEffect(requestPosts, []);
+    // useEffect(requestPosts, []);
 
     return <FlatList data={props.displayedPosts}
                      keyExtractor={(_, idx: number) => `${idx}`}
-                     onEndReached={requestPosts}
+                    //  onEndReached={requestPosts}
                      renderItem={renderPost} />;
 };
 
@@ -55,6 +55,6 @@ const connectedComponent = connect(mapStateToProps)(HomeScreen);
 
 export default ApiRequesterWrapper(
     connectedComponent, [
-        displayedPostsRequestPair,
+        displayedPostsRequestPair(),
     ],
 );

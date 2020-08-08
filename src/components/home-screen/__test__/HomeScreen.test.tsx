@@ -45,9 +45,9 @@ describe("HomeScreen component", () => {
         subject = await renderWithHooks(<HomeScreen {...defaultProps} />);
     });
 
-    it("requests front page post listings on render", () => {
-        expect(HomeScreenApi.requestPostListings).toHaveBeenCalled();
-    });
+    // it("requests front page post listings on render", () => {
+    //     expect(HomeScreenApi.requestPostListings).toHaveBeenCalled();
+    // });
 
     it("renders a FlatList with the correct props", () => {
         const flatList = subject.findByType(FlatList);
@@ -64,13 +64,13 @@ describe("HomeScreen component", () => {
         expect(listings[2].props.listing).toEqual(postListings[2]);
     });
 
-    it("requests post listing with listing name parameter when the end of the page is reached", async () => {
-        await act(async () => {
-            subject.findByType(FlatList).props.onEndReached();
-        })
+    // it("requests post listing with listing name parameter when the end of the page is reached", async () => {
+    //     await act(async () => {
+    //         subject.findByType(FlatList).props.onEndReached();
+    //     })
 
-        expect(HomeScreenApi.requestPostListings).toHaveBeenCalledWith(postListings[2].name);
-    });
+    //     expect(HomeScreenApi.requestPostListings).toHaveBeenCalledWith(postListings[2].name);
+    // });
 });
 
 describe("mapStateToProps", () => {

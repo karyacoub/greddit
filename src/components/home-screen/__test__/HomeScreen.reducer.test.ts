@@ -34,7 +34,7 @@ describe("HomeScreen reducer", () => {
         const state = fireAction(
             HomeScreenReducer, 
             homeScreenInitialState, 
-            HomeScreenActions.DISPLAYED_POSTS_REQUEST_SUCCEEDED,
+            HomeScreenActions.DISPLAYED_POSTS_REQUEST_FAILED,
             expectedPayload,
         );
 
