@@ -5,6 +5,7 @@ export enum HomeScreenActions {
     DISPLAYED_POSTS_REQUESTED = "DISPLAYED_POSTS_REQUESTED",
     DISPLAYED_POSTS_REQUEST_SUCCEEDED = "DISPLAYED_POSTS_REQUEST_SUCCEEDED",
     DISPLAYED_POSTS_REQUEST_FAILED = "DISPLAYED_POSTS_REQUEST_FAILED",
+    CLEAR_DISPLAYED_POSTS = "CLEAR_DISPLAYED_POSTS",
 }
 
 export function requestPostListings(after?: string) {
@@ -24,4 +25,8 @@ export function requestPostListings(after?: string) {
                 });
             });
     };
+}
+
+export function clearPostListings(dispatch: Dispatch) {
+    dispatch({ type: HomeScreenActions.CLEAR_DISPLAYED_POSTS });
 }

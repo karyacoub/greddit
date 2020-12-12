@@ -12,7 +12,7 @@ describe("HomeScreen reducer", () => {
             HomeScreenActions.DISPLAYED_POSTS_REQUESTED
         );
 
-        expect(state.displayedPosts.kind).toEqual(REQUESTED.kind);
+        expect(state.currentPostsList.kind).toEqual(REQUESTED.kind);
     });
     
     it("handles DISPLAYED_POSTS_REQUEST_SUCCEEDED", () => {
@@ -25,7 +25,7 @@ describe("HomeScreen reducer", () => {
             expectedPayload,
         );
 
-        expect(state.displayedPosts.data).toEqual(expectedPayload);
+        expect(state.currentPostsList.data).toEqual(expectedPayload);
     });
 
     it("handles DISPLAYED_POSTS_REQUEST_FAILED", () => {
@@ -38,7 +38,7 @@ describe("HomeScreen reducer", () => {
             expectedPayload,
         );
 
-        expect(state.displayedPosts.data).toEqual(expectedPayload);
+        expect(state.currentPostsList.data).toEqual(expectedPayload);
     });
 });
 

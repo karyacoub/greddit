@@ -8,7 +8,7 @@ export class HomeScreenApi {
             ? `&after=${after}`
             : "";
     
-        return processGetUnwrapped<IApiResponse>("https://www.reddit.com/.json?limit=50" + uri)
+        return processGetUnwrapped<IApiResponse>("https://www.reddit.com/.json?limit=25" + uri)
             .then((response: IApiResponse) => {
                 return response.data.children.map((listing: any) => {
                     const thumbnailWidth = listing.data.thumbnail_width === null ? undefined : listing.data.thumbnail_width;
